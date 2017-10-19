@@ -11,12 +11,13 @@
   <urls>
     <url desc="Support">https://github.com/JMAConsulting/biz.jmaconsulting.search.anyteloremail/issues</url>
   </urls>
-  <releaseDate>2014-04-27</releaseDate>
-  <version>1.0</version>
-  <develStage>stable</develStage>
+  <releaseDate>2017-10-19</releaseDate>
+  <version>1.1.alpha1</version>
+  <develStage>testing</develStage>
   <compatibility>
-    <ver>4.4</ver>
+    <ver>4.6</ver>
     <ver>4.5</ver>
+    <ver>4.4</ver>
   </compatibility>
   <comments>Thanks to Jamie McClelland/Progressive Technology Project (jamie@progressivetech.org) for developing an alpha release. This stable release finds non-primary phone and emails, ensures a single result per contact, improves the matching on phone numbers, removes duplicate phones and emails for a contact, includes the phone extensions in the phone numbers, and displays all cities and states for contacts.</comments>
   <civix>
