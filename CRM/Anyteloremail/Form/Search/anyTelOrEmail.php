@@ -33,12 +33,11 @@ class CRM_Anyteloremail_Form_Search_anyTelOrEmail extends CRM_Contact_Form_Searc
      */
     $this->setTitle('Any Telephone or Email Search');
 
-    $form->addElement('header', "howdy", 'QuickForm tutorial example');
     /**
      * if you are using the standard template, this array tells the template what elements
      * are part of the search criteria
      */
-    $form->assign('elements', array('number', 'email', 'howdy'));
+    $form->assign('elements', array('number', 'email'));
   }
 
   function summary() {
