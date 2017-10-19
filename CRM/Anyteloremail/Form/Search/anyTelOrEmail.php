@@ -78,20 +78,20 @@ class CRM_Anyteloremail_Form_Search_anyTelOrEmail extends CRM_Contact_Form_Searc
     $params = array();
     $where = array();
 
-    $phone = CRM_Utils_Array::value('number', $this->_formValues);
-    $phoneregex = $this->convertNumberToRegex($phone);
-    $email = CRM_Utils_Array::value('email', $this->_formValues);
+    $email = trim(CRM_Utils_Array::value('email',  $this->_formValues, ''));
+    $phone = trim(CRM_Utils_Array::value('number', $this->_formValues, ''));
+    $phone_normalised = $this->normalisePhoneNumber($phone);
 
     if(!empty($phone) && !empty($email)) {
-      $where = "(contact_a.is_deleted = 0 AND phone.phone REGEXP %1) AND (contact_a.is_deleted = 0 AND email.email REGEXP %2) ";
-      $params[1] = array($phoneregex, 'String');
+      $where = "(contact_a.is_deleted = 0 AND phone.phone_numeric LIKE %1) AND (contact_a.is_deleted = 0 AND email.email REGEXP %2) ";
+      $params[1] = array($phone_normalised, 'String');
       $params[2] = array($email, 'String');
     } elseif(!empty($email)) { // $phone is empty
       $where = "(contact_a.is_deleted = 0 AND email.email REGEXP %1) ";
       $params[1] = array('.*' . $email . '.*', 'String');
     } elseif (!empty($phone)) { // $email is empty
-      $where = "(contact_a.is_deleted = 0 AND phone.phone REGEXP %1) ";
-      $params[1] = array($phoneregex, 'String');
+      $where = "(contact_a.is_deleted = 0 AND phone.phone_numeric LIKE %1) ";
+      $params[1] = array($phone_normalised, 'String');
     } // else both are empty
     else {
       $where = "1 ";
@@ -102,6 +102,19 @@ class CRM_Anyteloremail_Form_Search_anyTelOrEmail extends CRM_Contact_Form_Searc
     return $whereClause;
   }
 
+  /**
+   * strip all non-numeric characters,
+   * but leave '%' for LIKE search
+   */
+  function normalisePhoneNumber($number) {
+    return '%' . preg_replace('#[^0-9]+#', '', $number) . '%';
+  }
+
+  /**
+   * format for north americal phone numbers.
+   * has been replaced by normalisePhoneNumber
+   * @deprecated
+   */
   function convertNumberToRegex($number) {
     // search for North American phone numbers of form (416) 444-4444
     // and allow any form of extension to follow it
