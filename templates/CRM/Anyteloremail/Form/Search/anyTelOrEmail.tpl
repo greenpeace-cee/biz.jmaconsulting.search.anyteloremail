@@ -11,18 +11,12 @@ This template is based on the Custom.tpl template.
     <div class="crm-accordion-body">
         <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="top"}</div>
         <table class="form-layout-compressed">
-       <p>{ts}Please enter a partial phone number and/or a partial email address. All contacts matching either the phone number or email address will be returned.{/ts}</p>
+       <p>{ts}Please enter a partial phone number and/or a partial email address. All contacts matching the phone number and email address (if given) will be returned.{/ts}</p>
             {* Loop through all defined search criteria fields (defined in the buildForm() function). *}
             {foreach from=$elements item=element}
                 <tr class="crm-contact-custom-search-form-row-{$element}">
                     <td class="label">{$form.$element.label}</td>
-                    {if $element eq 'start_date'}
-                        <td>{include file="CRM/common/jcalendar.tpl" elementName=start_date}</td>
-                    {elseif $element eq 'end_date'}
-                        <td>{include file="CRM/common/jcalendar.tpl" elementName=end_date}</td>
-                    {else}
-                        <td>{$form.$element.html}</td>
-                    {/if}
+                    <td>{$form.$element.html}</td>
                 </tr>
             {/foreach}
         </table>
