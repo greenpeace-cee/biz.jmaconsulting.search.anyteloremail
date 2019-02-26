@@ -90,12 +90,6 @@ This template is based on the Custom.tpl template.
         </table>
         {/strip}
 
-        <script type="text/javascript">
-        {* this function is called to change the color of selected row(s) *}
-        var fname = "{$form.formName}";
-        on_load_init_checkboxes(fname);
-        </script>
-
         {include file="CRM/common/pager.tpl" location="bottom"}
 
         </p>
@@ -110,10 +104,6 @@ This template is based on the Custom.tpl template.
 {/if}
 {literal}
 <script type="text/javascript">
-cj(function() {
-   cj().crmaccordions();
-});
-
 function toggleContactSelection( name, qfKey, selection ){
   var Url  = "{/literal}{crmURL p='civicrm/ajax/markSelection' h=0}{literal}";
 
@@ -148,7 +138,6 @@ function toggleContactSelection( name, qfKey, selection ){
     {literal}
     cj("#toggleSelect").removeAttr('checked');
     var formName = "{/literal}{$form.formName}{literal}";
-    on_load_init_checkboxes(formName);
   }
 }
 </script>
